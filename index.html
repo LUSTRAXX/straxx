@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU.STRAXX Fitness</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>LU.STRAXX</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#workout-plan">Workout Plan</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Transform Your Body with LU.STRAXX</h2>
+            <p>Join LU.STRAXX today and get access to a customized workout program designed to help you achieve your fitness goals.</p>
+            <a href="#workout-plan" class="btn">Get Started</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About LU.STRAXX</h2>
+        <p>LU.STRAXX is here to guide you on your fitness journey. Whether you're new to fitness or an experienced athlete, we provide personalized workout plans that help you grow stronger every day.</p>
+        <img src="images/about-image.jpg" alt="About LU.STRAXX" class="about-img">
+    </section>
+
+    <!-- Workout Plan Section -->
+    <section id="workout-plan" class="workout-plan">
+        <h2>Get Your Workout Plan - $10</h2>
+        <div class="workout-details">
+            <p>Our expertly designed 4-week workout program is crafted for all levels, helping you build strength, endurance, and muscle tone. Get started today!</p>
+            <h3>Only $10 for Full Access</h3>
+            <button id="checkout-button" class="btn">Pay Now</button>
+        </div>
+        <img src="images/workout-image.jpg" alt="Workout Plan" class="workout-img">
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>Have any questions? Reach out and we'll get back to you as soon as possible.</p>
+        <form action="#">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 LU.STRAXX Fitness. All rights reserved.</p>
+    </footer>
+
+    <!-- Stripe Checkout Integration -->
+    <script>
+        const stripe = Stripe('pk_live_51Qa1JGGTqXVxAcO86sPRCAPCab3xDPuCdBhNuMCbnF5QYObr0uaHUNvDFng6jg6p7eJO8fDtUUJ6yYil0j6aC6hJ00IklO6coL');  // Replace with your Stripe public key
+
+        document.getElementById('checkout-button').addEventListener('click', function() {
+            fetch('/create-checkout-session', { method: 'POST' })
+            .then(response => response.json())
+            .then(session => stripe.redirectToCheckout({ sessionId: session.id }))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
